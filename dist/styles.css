@@ -1,0 +1,77 @@
+html, body {
+  height: 100%;
+  overflow: hidden;  /* 전체 페이지에서 스크롤을 없앰 */
+  font-family: Arial, sans-serif;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse; /* 테이블 셀의 경계를 결합하여 여백 제거 */
+}
+
+th, td {
+  border: 1px solid black; /* 두께가 1인 solid 스타일의 검은색 경계 */
+  padding: 8px; /* 셀 안의 여백 */
+  text-align: left; /* 텍스트 정렬 */
+  font-size:12px;
+  word-wrap: break-word;
+}
+
+thead {
+  background-color: #f2f2f2; /* 헤더 배경색 */
+}
+
+.container {
+  display: flex;
+  height: 100%;
+}
+
+.left-panel {
+  width: 55%;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.left-panel-content {
+  padding: 20px; /* 내부 컨텐츠에만 패딩 적용 */
+}
+
+.right-panel {
+  width: 45%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  font-size: 12px;
+  font-family: 'Courier New', Courier, monospace;
+  box-sizing: border-box;  /* 패딩 포함해서 높이 계산 */
+}
+
+.result-box {
+  flex-grow: 1;
+  height: 50%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+.parse-box {
+  flex-grow: 1;
+  height: 30%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
+  white-space: pre-wrap;
+}
+
+button {
+  align-self: center;
+  padding: 5px 10px;
+  margin: 10px 0;
+  flex-shrink: 0; /* 버튼 크기 고정 */
+}
