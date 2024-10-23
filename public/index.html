@@ -738,19 +738,19 @@
             <div class="left-panel-content">
                 <table cellspacing="0" cellpadding="0">
                     <tr>
-                        <th>함수명</th>
-                        <th>설명</th>
+                        <th>Function</th>
+                        <th>Desc</th>
                         <th>Doc</th>
-                        <th>실행</th>
+                        <th>Run</th>
                         <th>Params</th>
                     </tr>
                     <tr>
                         <td>getCoins</td>
-                        <td width="8%">특정 CoinType의 코인을 불러온다. 모든 Object를 볼수있다</td>
+                        <td width="8%">Bringing up coins of a particular CoinType. You can see all the objects</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getCoins' target="_blank">link</a></td>
-                        <td><button onClick="getCoins()">실행</button></td>
+                        <td><button onClick="getCoins()">Run</button></td>
                         <td>
-                            cointype<br><input size=50 id="getCoins_cointype" value="" placeholder="값 안넣으면 SUI검색됨"><br>
+                            cointype<br><input size=50 id="getCoins_cointype" value="" placeholder="Leave it blank to search SUI"><br>
                             cursor<br><input size=50 id="getCoins_cursor" value=""><br>
                             limit<br><input size=50 id="getCoins_limit" value=""><br>
                             owner*<br><input size=50 id="getCoins_owner" value=""><br>
@@ -758,9 +758,9 @@
                     </tr>
                     <tr>
                         <td>getAllCoins</td>
-                        <td>모든 코인을 불러온다(SUI만나옴)</td>
+                        <td>Bring All Coins</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/interfaces/_mysten_sui.client.GetAllCoinsParams.html' target="_blank">link</a></td>
-                        <td><button onClick="getAllCoins()">실행</button></td>
+                        <td><button onClick="getAllCoins()">Run</button></td>
                         <td>
                             cursor<br><input size=50 id="getAllCoins_cursor" value=""><br>
                             limit<br><input size=50 id="getAllCoins_limit" value=""><br>
@@ -769,49 +769,59 @@
                     </tr>
                     <tr>
                         <td>getBalance</td>
-                        <td>코인 발란스를 불러온다</td>
+                        <td>Get the quantity of a particular CoinType.</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getBalance' target="_blank">link</a></td>
-                        <td><button onClick="getBalance()">실행</button></td>
+                        <td><button onClick="getBalance()">Run</button></td>
                         <td>
-                            coinType<br><input size=50 id="getBalance_cointype" value="" placeholder="값 안넣으면 SUI검색됨"><br>
+                            coinType<br><input size=50 id="getBalance_cointype" value="" placeholder="Leave it blank to search SUI"><br>
                             owner*<br><input size=50 id="getBalance_owner" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>getAllBalances</td>
-                        <td>코인의 모든 발란스를 불러온다</td>
+                        <td>Bring the quantity of all coins.</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getAllBalances' target="_blank">link</a></td>
-                        <td><button onClick="getAllBalances()">실행</button></td>
+                        <td><button onClick="getAllBalances()">Run</button></td>
                         <td>
                             owner*<br><input size=50 id="getAllBalances_owner" value=""><br>
                         </td>
                     </tr>
                     <tr>
-                        <td>multiGetObjects</td>
-                        <td>ObjectID를 검색한다</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#multiGetObjects' target="_blank">link</a></td>
-                        <td><button onClick="multiGetObjects()">실행</button></td>
+                        <td>getObject</td>
+                        <td width="8%">Return details of Objectid</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getObject' target="_blank">link</a></td>
+                        <td><button onClick="getObject()">Run</button></td>
                         <td>
-                            ids*(,로구분)<br><input size=50 id="multiGetObjects_ids" value=""><br>
+                            id*<br><input size=50 id="getObject_id" value=""><br>
+                            options<br><input size=50 id="getObject_options" value=""><br>
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>multiGetObjects</td>
+                        <td>Search for multi ObjectID</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#multiGetObjects' target="_blank">link</a></td>
+                        <td><button onClick="multiGetObjects()">Run</button></td>
+                        <td>
+                            ids*(Separate with ",")<br><input size=50 id="multiGetObjects_ids" value=""><br>
                         </td>
                     </tr>        
                     <tr>
                         <td>getOwnedObjects</td>
-                        <td>주소가 가진 모든 Objects를 불러온다</td>
+                        <td>Get all the objects that the wallet address has.</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getOwnedObjects' target="_blank">link</a></td>
-                        <td><button onClick="getOwnedObjects()">실행</button></td>
+                        <td><button onClick="getOwnedObjects()">Run</button></td>
                         <td>
                             cursor<br><input size=50 id="getOwnedObjects_cursor" value=""><br>
                             limit<br><input size=50 id="getOwnedObjects_limit" value=""><br>
-                            coinType<br><input size=50 id="getOwnedObjects_cointype" value="" placeholder="비워두면 모두나온다"><br>
+                            coinType<br><input size=50 id="getOwnedObjects_cointype" value="" placeholder="Leave it blank to search All"><br>
                             owner*<br><input size=50 id="getOwnedObjects_owner" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>queryTransactionBlocks</td>
-                        <td>주소의 transact history를 가져온다</td>
+                        <td>Get Transact History of Walletaddress</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#queryTransactionBlocks' target="_blank">link</a></td>
-                        <td><button onClick="queryTransactionBlocks('from')">실행(From)</button><br><button onClick="queryTransactionBlocks('to')">실행(To)</button></td>
+                        <td><button onClick="queryTransactionBlocks('from')">Run(From)</button><br><button onClick="queryTransactionBlocks('to')">Run(To)</button></td>
                         <td>
                             cursor<br><input size=50 id="queryTransactionBlocks_cursor" value=""><br>
                             limit<br><input size=50 id="queryTransactionBlocks_limit" value=""><br>
@@ -821,18 +831,18 @@
                     </tr>
                     <tr>
                         <td>getCheckpoint</td>
-                        <td width="8%">checkpoint에 대한 정보를 반환</td>
+                        <td width="8%">Search for Checkpoint Infomation</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getCheckpoint' target="_blank">link</a></td>
-                        <td><button onClick="getCheckpoint()">실행</button></td>
+                        <td><button onClick="getCheckpoint()">Run</button></td>
                         <td>
                             id*<br><input size=50 id="getCheckpoint_id" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>getCheckpoints</td>
-                        <td width="8%">페이지별로 기록된 checkpoint를 반환</td>
+                        <td width="8%">Returns checkpoints recorded page by page</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getCheckpoints' target="_blank">link</a></td>
-                        <td><button onClick="getCheckpoints()">실행</button></td>
+                        <td><button onClick="getCheckpoints()">Run</button></td>
                         <td>
                             cursor<br><input size=50 id="getCheckpoints_cursor" value=""><br>
                             limit<br><input size=50 id="getCheckpoints_limit" value=""><br>
@@ -841,17 +851,17 @@
                     </tr>
                     <tr>
                         <td>getCurrentEpoch</td>
-                        <td width="8%">요청된 epoch에 대한 committee 정보를 반환</td>
+                        <td width="8%">Returns commitee information for requested current epoch</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getCurrentEpoch' target="_blank">link</a></td>
-                        <td><button onClick="getCurrentEpoch()">실행</button></td>
+                        <td><button onClick="getCurrentEpoch()">Run</button></td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>getDynamicFields</td>
-                        <td width="8%">object가 소유한 동적 필드 객체 목록을 반환</td>
+                        <td width="8%">Returns a list of dynamic fields owned by the object</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getDynamicFields' target="_blank">link</a></td>
-                        <td><button onClick="getDynamicFields()">실행</button></td>
+                        <td><button onClick="getDynamicFields()">Run</button></td>
                         <td>
                             cursor<br><input size=50 id="getDynamicFields_cursor" value=""><br>
                             limit<br><input size=50 id="getDynamicFields_limit" value=""><br>
@@ -860,9 +870,9 @@
                     </tr>
                     <tr>
                         <td>getEpochs</td>
-                        <td width="8%">요청된 epoch에 대한 committee 정보를 반환</td>
+                        <td width="8%">Returns commitee information for requested epoch</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getEpochs' target="_blank">link</a></td>
-                        <td><button onClick="getEpochs()">실행</button></td>
+                        <td><button onClick="getEpochs()">Run</button></td>
                         <td>
                             cursor<br><input size=50 id="getEpochs_cursor" value=""><br>
                             limit<br><input size=50 id="getEpochs_limit" value=""><br>
@@ -871,25 +881,25 @@
                     </tr>
                     <tr>
                         <td>getLatestCheckpointSequenceNumber</td>
-                        <td width="8%">가장 최근에 실행된 checkpoint의 시퀀스 번호 가져오기</td>
+                        <td width="8%">Return the sequence number of the most recently executed checkpoint</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getLatestCheckpointSequenceNumber' target="_blank">link</a></td>
-                        <td><button onClick="getLatestCheckpointSequenceNumber()">실행</button></td>
+                        <td><button onClick="getLatestCheckpointSequenceNumber()">Run</button></td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>getLatestSuiSystemState</td>
-                        <td width="8%">최신 system state content 반환</td>
+                        <td width="8%">Return the latest system state content</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getLatestSuiSystemState' target="_blank">link</a></td>
-                        <td><button onClick="getLatestSuiSystemState()">실행</button></td>
+                        <td><button onClick="getLatestSuiSystemState()">Run</button></td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>getMoveFunctionArgTypes</td>
-                        <td width="8%">Move 함수의 인자 타입을 read, write, full access과 같은 방식으로 가져오기</td>
+                        <td width="8%">Get the factor type of Move function in the same way as read, write, full access</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getMoveFunctionArgTypes' target="_blank">link</a></td>
-                        <td><button onClick="getMoveFunctionArgTypes()">실행</button></td>
+                        <td><button onClick="getMoveFunctionArgTypes()">Run</button></td>
                         <td>
                             function*<br><input size=50 id="getMoveFunctionArgTypes_function" value=""><br>
                             module*<br><input size=50 id="getMoveFunctionArgTypes_module" value=""><br>
@@ -898,9 +908,9 @@
                     </tr>
                     <tr>
                         <td>getNormalizedMoveFunction</td>
-                        <td width="8%">Move 함수의 구조화된 표현</td>
+                        <td width="8%">Returns a structured representation of the Move function</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getNormalizedMoveFunction' target="_blank">link</a></td>
-                        <td><button onClick="getNormalizedMoveFunction()">실행</button></td>
+                        <td><button onClick="getNormalizedMoveFunction()">Run</button></td>
                         <td>
                             function*<br><input size=50 id="getNormalizedMoveFunction_function" value=""><br>
                             module*<br><input size=50 id="getNormalizedMoveFunction_module" value=""><br>
@@ -909,9 +919,9 @@
                     </tr>
                     <tr>
                         <td>getNormalizedMoveModule</td>
-                        <td width="8%">Move 모듈의 구조화된 표현</td>
+                        <td width="8%">Returns a structured representation of the Move module</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getNormalizedMoveModule' target="_blank">link</a></td>
-                        <td><button onClick="getNormalizedMoveModule()">실행</button></td>
+                        <td><button onClick="getNormalizedMoveModule()">Run</button></td>
                         <td>
                             module*<br><input size=50 id="getNormalizedMoveModule_module" value=""><br>
                             package*<br><input size=50 id="getNormalizedMoveModule_package" value=""><br>
@@ -919,97 +929,87 @@
                     </tr>
                     <tr>
                         <td>getNormalizedMoveModulesByPackage</td>
-                        <td width="8%"></td>
+                        <td width="8%">Returns a structured representation of the Move package</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getNormalizedMoveModulesByPackage' target="_blank">link</a></td>
-                        <td><button onClick="getNormalizedMoveModulesByPackage()">실행</button></td>
+                        <td><button onClick="getNormalizedMoveModulesByPackage()">Run</button></td>
                         <td>
                             package*<br><input size=50 id="getNormalizedMoveModulesByPackage_package" value=""><br>
                         </td>
                     </tr>
                     <tr>
-                        <td>getObject</td>
-                        <td width="8%">Object의 세부정보 가져오기</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getObject' target="_blank">link</a></td>
-                        <td><button onClick="getObject()">실행</button></td>
-                        <td>
-                            id*<br><input size=50 id="getObject_id" value=""><br>
-                            options<br><input size=50 id="getObject_options" value=""><br>
-                        </td>
-                    </tr>
-                    <tr>
                         <td>getReferenceGasPrice</td>
-                        <td width="8%">네트워크의 기준 가스 가격을 가져오기</td>
+                        <td width="8%">Import base gas prices for the network</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getReferenceGasPrice' target="_blank">link</a></td>
-                        <td><button onClick="getReferenceGasPrice()">실행</button></td>
+                        <td><button onClick="getReferenceGasPrice()">Run</button></td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>getRpcApiVersion</td>
-                        <td width="8%">RPC API Version 정보 가져오기</td>
+                        <td width="8%">Get RPC API Version Information</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getRpcApiVersion' target="_blank">link</a></td>
-                        <td><button onClick="getRpcApiVersion()">실행</button></td>
+                        <td><button onClick="getRpcApiVersion()">Run</button></td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>getStakes</td>
-                        <td width="8%">주소에 위임된 스테이크 정보 가져오기</td>
+                        <td width="8%">Import delegated steak information to the address</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getStakes' target="_blank">link</a></td>
-                        <td><button onClick="getStakes()">실행</button></td>
+                        <td><button onClick="getStakes()">Run</button></td>
                         <td>
                             owner*<br><input size=50 id="getStakes_owner" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>getStakesByIds</td>
-                        <td width="8%">ID에 위임된 스테이크 정보 가져오기</td>
+                        <td width="8%">Import delegated steak information to the id</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getStakesByIds' target="_blank">link</a></td>
-                        <td><button onClick="getStakesByIds()">실행</button></td>
+                        <td><button onClick="getStakesByIds()">Run</button></td>
                         <td>
-                            stakedSuiIds*(,로구분)<br><input size=50 id="getStakesByIds_stakedSuiIds" value=""><br>
+                            stakedSuiIds*(Separate with ",")<br><input size=50 id="getStakesByIds_stakedSuiIds" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>getTotalSupply</td>
                         <td width="8%"></td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTotalSupply' target="_blank">link</a></td>
-                        <td><button onClick="getTotalSupply()">실행</button></td>
+                        <td><button onClick="getTotalSupply()">Run</button></td>
                         <td>
                             coinType*<br><input size=50 id="getTotalSupply_coinType" value="0x2::sui::SUI"><br>
                         </td>
                     </tr>
                     <tr>
                         <td>getTotalTransactionBlocks</td>
-                        <td width="8%">transaction의 총 수량 가져오기</td>
+                        <td width="8%">Get the total quantity of transactions</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTotalTransactionBlocks' target="_blank">link</a></td>
-                        <td><button onClick="getTotalTransactionBlocks()">실행</button></td>
+                        <td><button onClick="getTotalTransactionBlocks()">Run</button></td>
                         <td>
                         </td>
                     </tr>
                     <tr>
                         <td>getTransactionBlock</td>
-                        <td width="8%">digest에 대한 transaction 데이터를 반환</td>
+                        <td width="8%">Returns transaction data for digest</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTransactionBlock' target="_blank">link</a></td>
-                        <td><button onClick="getTransactionBlock()">실행</button></td>
+                        <td><button onClick="getTransactionBlock()">Run</button></td>
                         <td>
                             digest*<br><input size=50 id="getTransactionBlock_digest" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>multiGetTransactionBlocks</td>
-                        <td width="8%"></td>
+                        <td width="8%">Returns transaction data for digests</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#multiGetTransactionBlocks' target="_blank">link</a></td>
-                        <td><button onClick="multiGetTransactionBlocks()">실행</button></td>
+                        <td><button onClick="multiGetTransactionBlocks()">Run</button></td>
                         <td>
-                            digests*(,로구분)<br><input size=50 id="multiGetTransactionBlocks_digests" value=""><br>
+                            digests*(Separate with ",")<br><input size=50 id="multiGetTransactionBlocks_digests" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>resolveNameServiceAddress</td>  
                         <td width="8%"></td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#resolveNameServiceAddress' target="_blank">link</a></td>
-                        <td><button onClick="resolveNameServiceAddress()">실행</button></td>
+                        <td><button onClick="resolveNameServiceAddress()">Run</button></td>
                         <td>
                             name*<br><input size=50 id="resolveNameServiceAddress_name" value=""><br>
                         </td>
@@ -1018,67 +1018,67 @@
                     <!-- Transact -->
                     <tr>
                         <td>callPaySui<br>[Transact]</td>
-                        <td>Sui를 전송할때 사용.<br>call메서드로 PaySui메서드를 날리는 TxBytes를 가져온다</td>
+                        <td>Used to transfer Sui<!-- <br>call메서드로 PaySui메서드를 날리는 TxBytes를 가져온다</td> -->
                         <td>
                             <a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#call' target="_blank">link</a>
                             <a href='https://www.suirpc.app/method/unsafe_paySui' target="_blank">link2</a>
                         </td>
-                        <td><button onClick="callPaySui()">실행</button></td>
+                        <td><button onClick="callPaySui()">Run</button></td>
                         <td>
                             signer*<br><input size=50 id="callPaySui_signer" value=""><br>
-                            input_coins*(,로구분)<br><input size=50 id="callPaySui_input_coins" value=""><br>
-                            recipients*(,로구분)<br><input size=50 id="callPaySui_recipients" value=""><br>
-                            amounts*(,로구분)<br><input size=50 id="callPaySui_amounts" value=""><br>
-                            gas_budget*(지불할의사가있는 최대가스비)<br><input size=50 id="callPaySui_gas_budget" value=""><br>
+                            input_coins*(Separate with ",")<br><input size=50 id="callPaySui_input_coins" value=""><br>
+                            recipients*(Separate with ",")<br><input size=50 id="callPaySui_recipients" value=""><br>
+                            amounts*(Separate with ",")<br><input size=50 id="callPaySui_amounts" value=""><br>
+                            gas_budget*(the maximum cost of gas that one is willing to pay)<br><input size=50 id="callPaySui_gas_budget" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>callPay<br>[Transact]</td>
-                        <td>Token 전송할때 사용.<br>call메서드로 Pay메서드를 날리는 TxBytes를 가져온다</td>
+                        <td>Used to transfer token</td>
                         <td>
                             <a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#call' target="_blank">link</a>
                             <a href='https://www.suirpc.app/method/unsafe_pay' target="_blank">link2</a>
                         </td>
-                        <td><button onClick="callPay()">실행</button></td>
+                        <td><button onClick="callPay()">Run</button></td>
                         <td>
                             signer*<br><input size=50 id="callPay_signer" value=""><br>
-                            input_coins*(,로구분)<br><input size=50 id="callPay_input_coins" value=""><br>
-                            recipients*(,로구분)<br><input size=50 id="callPay_recipients" value=""><br>
-                            amounts*(,로구분)<br><input size=50 id="callPay_amounts" value=""><br>
-                            gas_object*(지불할가스비 Object, input_coins랑 다른object)<br><input size=50 id="callPay_gas_object" value=""><br>
-                            gas_budget*(지불할의사가있는 최대가스비)<br><input size=50 id="callPay_gas_budget" value=""><br>
+                            input_coins*(Separate with ",")<br><input size=50 id="callPay_input_coins" value=""><br>
+                            recipients*(Separate with ",")<br><input size=50 id="callPay_recipients" value=""><br>
+                            amounts*(Separate with ",")<br><input size=50 id="callPay_amounts" value=""><br>
+                            gas_object*(Gas cost to pay Object, different from input_coins)<br><input size=50 id="callPay_gas_object" value=""><br>
+                            gas_budget*(the maximum cost of gas that one is willing to pay)<br><input size=50 id="callPay_gas_budget" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>callTransferObject<br>[Transact]</td>
-                        <td>NFT를 전송할때 사용.<br>call메서드로 TransferObject메서드를 날리는 TxBytes를 가져온다</td>
+                        <td>Used to transfer NFT</td>
                         <td>
                             <a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#call' target="_blank">link</a>
                             <a href='https://www.suirpc.app/method/unsafe_transferObject' target="_blank">link2</a>
                         </td>
-                        <td><button onClick="callTransferObject()">실행</button></td>
+                        <td><button onClick="callTransferObject()">Run</button></td>
                         <td>
                             signer*<br><input size=50 id="callTransferObject_signer" value=""><br>
-                            object_id*(옮길 NFT의 object_id)<br><input size=50 id="callTransferObject_object_id" value=""><br>
-                            gas_object*(지불할가스비 Object, input_coins랑 다른object)<br><input size=50 id="callTransferObject_gas_object" value=""><br>
-                            gas_budget*(지불할의사가있는 최대가스비)<br><input size=50 id="callTransferObject_gas_budget" value=""><br>
+                            object_id*(NFT object_id)<br><input size=50 id="callTransferObject_object_id" value=""><br>
+                            gas_object*(Gas cost to pay Object, different from input_coins)<br><input size=50 id="callTransferObject_gas_object" value=""><br>
+                            gas_budget*(the maximum cost of gas that one is willing to pay)<br><input size=50 id="callTransferObject_gas_budget" value=""><br>
                             recipient*<br><input size=50 id="callTransferObject_recipient" value=""><br>
                         </td>
                     </tr>    
                     <tr>
                         <td>dryRunTransactionBlock</td>
-                        <td>TxByte를 미리날려봐서 성공여부와 가스비를 확정시킬수있다.</td>
+                        <td>Pre-run TxByte to determine gas cost and success</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#dryRunTransactionBlock' target="_blank">link</a></td>
-                        <td><button onClick="dryRunTransactionBlock()">실행</button></td>
+                        <td><button onClick="dryRunTransactionBlock()">Run</button></td>
                         <td>
                             transactionBlock*<br><input size=50 id="dryRunTransactionBlock_transactionBlock" value=""><br>
                         </td>
                     </tr>
                     <tr>
                         <td>executeTransactionBlock</td>
-                        <td>TxByte를 sign값과함께 실행시킨다</td>
+                        <td>Run TxByte with sign value</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#executeTransactionBlock' target="_blank">link</a></td>
-                        <td><button onClick="executeTransactionBlock()">실행</button></td>
+                        <td><button onClick="executeTransactionBlock()">Run</button></td>
                         <td>
                             transactionBlock*<br><input size=50 id="executeTransactionBlock_transactionBlock" value=""><br>
                             signature*<br><input size=50 id="executeTransactionBlock_signature" value=""><br>
