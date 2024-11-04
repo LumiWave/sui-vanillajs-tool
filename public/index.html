@@ -15,33 +15,23 @@
         function resultOutputJson(json) {
             const jsonString = JSON.stringify(json, null, 2);
             $('#resultBox').text(jsonString);
-            $('#parseBox').text('');
-        }
-        function parseOutputJson(json) {
-            const jsonString = JSON.stringify(json, null, 2);
-            $('#parseBox').text(jsonString);
-        }
-        function parseDisable(flag){
-            if (flag){
-                $('#btnParse').val('')
-                $('#parseBox').text('');
-                $('#btnParse').prop('disabled', true);
-            }else{
-                $('#btnParse').prop('disabled', false);
-            }
         }
 
         function resultOutput(value) {
             $('#resultBox').text(value);
-            $('#parseBox').text('');
         }
 
         //여기서부터 rpc명령
-        async function getCoins(){
+        async function getCoins(printResult = true){
             var coinType = $('#getCoins_cointype').val();
             var cursor = $('#getCoins_cursor').val();
             var limit = $('#getCoins_limit').val();
             var owner = $('#getCoins_owner').val();
+            if(owner == ""){
+                alert('input owner');
+                $('#getCoins_owner').focus();
+                return
+            }
             var params = {
                 coinType: coinType==""?null:coinType,
                 cursor: cursor==""?null:cursor,
@@ -53,11 +43,16 @@
             result = await suiClient.getCoins(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getCoins');
         }
 
-        async function getAllCoins(){
+        async function getAllCoins(printResult = true){
             var cursor = $('#getAllCoins_cursor').val();
             var limit = $('#getAllCoins_limit').val();
             var owner = $('#getAllCoins_owner').val();
@@ -71,11 +66,16 @@
             result = await suiClient.getAllCoins(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getAllCoins')
         }
 
-        async function getBalance(){
+        async function getBalance(printResult = true){
             var coinType = $('#getBalance_cointype').val();
             var owner = $('#getBalance_owner').val();
             var params = {
@@ -87,11 +87,16 @@
             result = await suiClient.getBalance(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getBalance');
         }
 
-        async function getAllBalances(){
+        async function getAllBalances(printResult = true){
             var owner = $('#getAllBalances_owner').val();
             var params = {
                 owner: owner,
@@ -101,11 +106,37 @@
             result = await suiClient.getAllBalances(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getAllBalances');
         }
 
-        async function multiGetObjects(){
+        async function getObject(printResult = true) {
+            var id = $('#getObject_id').val();
+            var options = $('#getObject_options').val();
+            var params = {
+                id: id,
+                options: options==""?null:options,
+            };
+            console.log("req");
+            console.log(params);
+            result = await suiClient.getObject(params);
+            console.log("response");
+            console.log(result);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getObject');
+        }
+
+        async function multiGetObjects(printResult = true){
             var ids = $('#multiGetObjects_ids').val().split(',').map(item => item.trim());
             var params = {
                 ids: ids,
@@ -121,11 +152,16 @@
             result = await suiClient.multiGetObjects(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'multiGetObjects');
         }        
 
-        async function getOwnedObjects(){
+        async function getOwnedObjects(printResult = true){
             var cursor = $('#getOwnedObjects_cursor').val();
             var limit = $('#getOwnedObjects_limit').val();
             var coinType = $('#getOwnedObjects_cointype').val();
@@ -185,12 +221,16 @@
             result = await suiClient.getOwnedObjects(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
-            $('#btnParse').val('getOwnedObjects')
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'getOwnedObjects');
         }
 
-        async function queryTransactionBlocks(flag){
+        async function queryTransactionBlocks(flag, printResult = true){
             var cursor = $('#queryTransactionBlocks_cursor').val();
             var limit = $('#queryTransactionBlocks_limit').val();
             var order = $('#queryTransactionBlocks_order').val();
@@ -233,12 +273,16 @@
             result = await suiClient.queryTransactionBlocks(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
-            $('#btnParse').val('queryTransactionBlocks')
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'queryTransactionBlocks');
         }
 
-        async function getCheckpoint() {
+        async function getCheckpoint(printResult = true) {
             var id = $('#getCheckpoint_id').val();
             var params = {
                 id: id,
@@ -248,11 +292,16 @@
             result = await suiClient.getCheckpoint(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getCheckpoint');
         }
 
-        async function getCheckpoints() {
+        async function getCheckpoints(printResult = true) {
             var cursor = $('#getCheckpoints_cursor').val();
             var limit = $('#getCheckpoints_limit').val();
             var descendingOrder = $('#getCheckpoints_descendingOrder').val();
@@ -266,20 +315,30 @@
             result = await suiClient.getCheckpoints(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getCheckpoints');
         }
 
-        async function getCurrentEpoch() {
+        async function getCurrentEpoch(printResult = true) {
             console.log("req");
             result = await suiClient.getCurrentEpoch();
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getCurrentEpoch');
         }
 
-        async function getDynamicFields() {
+        async function getDynamicFields(printResult = true) {
             var cursor = $('#getDynamicFields_cursor').val();
             var limit = $('#getDynamicFields_limit').val();
             var parentId = $('#getDynamicFields_parentId').val();
@@ -293,11 +352,16 @@
             result = await suiClient.getDynamicFields(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getDynamicFields');
         }
         
-        async function getEpochs() {
+        async function getEpochs(printResult = true) {
             var cursor = $('#getEpochs_cursor').val();
             var limit = $('#getEpochs_limit').val();
             var descendingOrder = $('#getEpochs_descendingOrder').val();
@@ -311,129 +375,64 @@
             result = await suiClient.getEpochs(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getEpochs');
         }
 
-        async function getLatestCheckpointSequenceNumber() {
+        async function getLatestCheckpointSequenceNumber(printResult = true) {
             console.log("req");
             result = await suiClient.getLatestCheckpointSequenceNumber();
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getLatestCheckpointSequenceNumber');
         }
 
-        async function getLatestSuiSystemState() {
+        async function getLatestSuiSystemState(printResult = true) {
             console.log("req");
             result = await suiClient.getLatestSuiSystemState();
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getLatestSuiSystemState');
         }
 
-        async function getMoveFunctionArgTypes() {
-            var functionParam = $('#getMoveFunctionArgTypes_function').val();
-            var module = $('#getMoveFunctionArgTypes_module').val();
-            var package = $('#getMoveFunctionArgTypes_package').val();
-            var params = {
-                function: functionParam,
-                module: module,
-                package: package,
-            };
-            console.log("req");
-            console.log(params);
-            result = await suiClient.getMoveFunctionArgTypes(params);
-            console.log("response");
-            console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
-        }
-
-        async function getNormalizedMoveFunction() {
-            var functionParam = $('#getNormalizedMoveFunction_function').val();
-            var module = $('#getNormalizedMoveFunction_module').val();
-            var package = $('#getNormalizedMoveFunction_package').val();
-            var params = {
-                function: functionParam,
-                module: module,
-                package: package,
-            };
-            console.log("req");
-            console.log(params);
-            result = await suiClient.getNormalizedMoveFunction(params);
-            console.log("response");
-            console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
-        }
-
-        async function getNormalizedMoveModule() {
-            var module = $('#getNormalizedMoveModule_module').val();
-            var package = $('#getNormalizedMoveModule_package').val();
-            var params = {
-                module: module,
-                package: package,
-            };
-            console.log("req");
-            console.log(params);
-            result = await suiClient.getNormalizedMoveModule(params);
-            console.log("response");
-            console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
-        }
-
-        async function getNormalizedMoveModulesByPackage() {
-            var package = $('#getNormalizedMoveModulesByPackage_package').val();
-            var params = {
-                package: package,
-            };
-            console.log("req");
-            console.log(params);
-            result = await suiClient.getNormalizedMoveModulesByPackage(params);
-            console.log("response");
-            console.log(result);
-            resultOutputJson(result);
-            parseDisable(true)
-        }
-
-        async function getObject() {
-            var id = $('#getObject_id').val();
-            var options = $('#getObject_options').val();
-            var params = {
-                id: id,
-                options: options==""?null:options,
-            };
-            console.log("req");
-            console.log(params);
-            result = await suiClient.getObject(params);
-            console.log("response");
-            console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
-        }
-
-        async function getReferenceGasPrice() {
+        async function getReferenceGasPrice(printResult = true) {
             console.log("req");
             result = await suiClient.getReferenceGasPrice();
             console.log("response");
             console.log(result);
             resultOutput(result);
-            parseDisable(false)
+            // parseDisable(false)
+            runRPC(printResult, 'getReferenceGasPrice');
         }
 
-        async function getRpcApiVersion() {
+        async function getRpcApiVersion(printResult = true) {
             console.log("req");
             result = await suiClient.getRpcApiVersion();
             console.log("response");
             console.log(result);
             resultOutput(result);
-            parseDisable(true);
+            // parseDisable(true);
+            runRPC(printResult, 'getRpcApiVersion');
         }
 
-        async function getStakes() {
+        async function getStakes(printResult = true) {
             var owner = $('#getStakes_owner').val();
             var params = {
                 owner: owner,
@@ -443,11 +442,16 @@
             result = await suiClient.getStakes(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getStakes');
         }
 
-        async function getStakesByIds() {
+        async function getStakesByIds(printResult = true) {
             var stakedSuiIds = $('#getStakesByIds_stakedSuiIds').val().split(',').map(item => item.trim());
             var params = {
                 stakedSuiIds: stakedSuiIds,
@@ -457,11 +461,16 @@
             result = await suiClient.getStakesByIds(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'getStakesByIds');
         }
 
-        async function getTotalSupply() {
+        async function getTotalSupply(printResult = true) {
             var coinType = $('#getTotalSupply_coinType').val();
             var params = {
                 coinType: coinType,
@@ -471,20 +480,26 @@
             result = await suiClient.getTotalSupply(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'getTotalSupply');
         }
 
-        async function getTotalTransactionBlocks() {
+        async function getTotalTransactionBlocks(printResult = true) {
             console.log("req");
             result = await suiClient.getTotalTransactionBlocks();
             console.log("response");
             console.log(result);
             resultOutput(result);
-            parseDisable(true);
+            // parseDisable(true);
+            runRPC(printResult, 'getTotalTransactionBlocks');
         }
 
-        async function getTransactionBlock() {
+        async function getTransactionBlock(printResult = true) {
             var digest = $('#getTransactionBlock_digest').val();
             var params = {
                 digest: digest,
@@ -506,11 +521,16 @@
             result = await suiClient.getTransactionBlock(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'getTransactionBlock');
         }
 
-        async function multiGetTransactionBlocks() {
+        async function multiGetTransactionBlocks(printResult = true) {
             var digests = $('#multiGetTransactionBlocks_digests').val().split(',').map(item => item.trim());
             var params = {
                 digests: digests,
@@ -532,11 +552,16 @@
             result = await suiClient.multiGetTransactionBlocks(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(true);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true);
+            runRPC(printResult, 'multiGetTransactionBlocks');
         }
 
-        async function resolveNameServiceAddress() {
+        async function resolveNameServiceAddress(printResult = true) {
             var name = $('#resolveNameServiceAddress_name').val();
             var params = {
                 name: name,
@@ -547,11 +572,98 @@
             console.log("response");
             console.log(result);
             resultOutput(result);
-            parseDisable(true);
+            // parseDisable(true);
+            runRPC(printResult, 'resolveNameServiceAddress');
+        }
+
+        async function getMoveFunctionArgTypes(printResult = true) {
+            var functionParam = $('#getMoveFunctionArgTypes_function').val();
+            var module = $('#getMoveFunctionArgTypes_module').val();
+            var package = $('#getMoveFunctionArgTypes_package').val();
+            var params = {
+                function: functionParam,
+                module: module,
+                package: package,
+            };
+            console.log("req");
+            console.log(params);
+            result = await suiClient.getMoveFunctionArgTypes(params);
+            console.log("response");
+            console.log(result);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getMoveFunctionArgTypes');
+        }
+
+        async function getNormalizedMoveFunction(printResult = true) {
+            var functionParam = $('#getNormalizedMoveFunction_function').val();
+            var module = $('#getNormalizedMoveFunction_module').val();
+            var package = $('#getNormalizedMoveFunction_package').val();
+            var params = {
+                function: functionParam,
+                module: module,
+                package: package,
+            };
+            console.log("req");
+            console.log(params);
+            result = await suiClient.getNormalizedMoveFunction(params);
+            console.log("response");
+            console.log(result);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getNormalizedMoveFunction');
+        }
+
+        async function getNormalizedMoveModule(printResult = true) {
+            var module = $('#getNormalizedMoveModule_module').val();
+            var package = $('#getNormalizedMoveModule_package').val();
+            var params = {
+                module: module,
+                package: package,
+            };
+            console.log("req");
+            console.log(params);
+            result = await suiClient.getNormalizedMoveModule(params);
+            console.log("response");
+            console.log(result);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getNormalizedMoveModule');
+        }
+
+        async function getNormalizedMoveModulesByPackage(printResult = true) {
+            var package = $('#getNormalizedMoveModulesByPackage_package').val();
+            var params = {
+                package: package,
+            };
+            console.log("req");
+            console.log(params);
+            result = await suiClient.getNormalizedMoveModulesByPackage(params);
+            console.log("response");
+            console.log(result);
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(true)
+            runRPC(printResult, 'getNormalizedMoveModulesByPackage');
         }
 
         //Transact method
-        async function callPaySui(){
+        async function callPaySui(printResult = true){
             //트랜잭션 메서드는 call을통해 params를 전달하여 해시값을 받아오는 함수이다 이 결과를가지고 dryRun or execute를 할수있다.
             var method = 'unsafe_paySui';
             var signer = $('#callPaySui_signer').val(); //fromAddress
@@ -571,12 +683,16 @@
             result = await suiClient.call(method, params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
-            $('#btnParse').val('callPaySui')
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'callPaySui');
         }
 
-        async function callPay(){
+        async function callPay(printResult = true){
             //트랜잭션 메서드는 call을통해 params를 전달하여 해시값을 받아오는 함수이다 이 결과를가지고 dryRun or execute를 할수있다.
             var method = 'unsafe_pay';
             var signer = $('#callPay_signer').val(); //fromAddress
@@ -598,12 +714,16 @@
             result = await suiClient.call(method, params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
-            $('#btnParse').val('callPay')
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'callPay');
         }
 
-        async function callTransferObject(){
+        async function callTransferObject(printResult = true){
             //트랜잭션 메서드는 call을통해 params를 전달하여 해시값을 받아오는 함수이다 이 결과를가지고 dryRun or execute를 할수있다.
             var method = 'unsafe_transferObject';
             var signer = $('#callTransferObject_signer').val(); //fromAddress
@@ -623,12 +743,16 @@
             result = await suiClient.call(method, params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
-            $('#btnParse').val('callTransferObject')
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'callTransferObject');
         }        
         
-        async function dryRunTransactionBlock(){
+        async function dryRunTransactionBlock(printResult = true){
             var transactionBlock = $('#dryRunTransactionBlock_transactionBlock').val();
             var params = {
                 transactionBlock:transactionBlock,
@@ -638,11 +762,15 @@
             result = await suiClient.dryRunTransactionBlock(params);
             console.log("response");
             console.log(result);
-            resultOutputJson(result);
-            parseDisable(false)
-            $('#btnParse').val('dryRunTransactionBlock')
+            if(printResult){
+                resultOutputJson(result);
+            }else{
+                return result
+            }
+            // parseDisable(false)
+            runRPC(printResult, 'dryRunTransactionBlock');
         }
-        async function executeTransactionBlock(){
+        async function executeTransactionBlock(printResult = true){
             var transactionBlock = $('#executeTransactionBlock_transactionBlock').val();
             var signature = $('#executeTransactionBlock_signature').val();
             //signObj = await suisdk.CreateSignature(transactionBlock, privateKey);
@@ -655,80 +783,231 @@
             result = await suiClient.executeTransactionBlock(params);
             console.log("response");
             console.log(result);
-            parseDisable(true)
+            // parseDisable(true)
+            runRPC(printResult, 'executeTransactionBlock');
         }
 
         //파싱
-        function parse(funcName){
-            var parseResult = [];
-            switch(funcName){
-                case "getOwnedObjects":
-                    result.data.forEach(item=>{
-                        var objectID = item.data.objectId;
-                        var display = item.data.display.data; //보여지는 메타데이터
-                        var fields = item.data.content.fields;
+        // function parse(funcName){
+        //     var parseResult = [];
+        //     switch(funcName){
+        //         case "getOwnedObjects":
+        //             result.data.forEach(item=>{
+        //                 var objectID = item.data.objectId;
+        //                 var display = item.data.display.data; //보여지는 메타데이터
+        //                 var fields = item.data.content.fields;
                         
-                        parseResult.push({
-                            "NFTObjectID" : objectID,
-                            "메타데이터" : display,
-                            "NFT의데이터" : fields,
-                        });
-                    });
-                    break;
-                case "queryTransactionBlocks":
-                    result.data.forEach(item => {
-                        var digest = item.digest;
-                        var ts = parseInt(item.timestampMs) / 1000
-                        var logdt = moment.unix(ts).format('YYYY-MM-DD HH:mm:ss');
-                        var gasFee = parseInt(item.effects.gasUsed.computationCost) + parseInt(item.effects.gasUsed.storageCost) - parseInt(item.effects.gasUsed.storageRebate);
-                        var changes = []
-                        item.balanceChanges.forEach(change => {
-                            if(change.owner.AddressOwner == $('#queryTransactionBlocks_owner').val()){
-                                //자기거만 보여준다
-                                if(change.coinType == "0x2::sui::SUI") {
-                                    changes.push({
-                                        "변화코인" : change.coinType,
-                                        "수량" : change.amount,
-                                        "수수료빼고" : parseInt(change.amount) + parseInt(gasFee)
-                                    });
-                                }else{
-                                    changes.push({
-                                        "변화코인" : change.coinType,
-                                        "수량" : change.amount
-                                    });
-                                }
-                            }
-                        })
-                        parseResult.push({
-                            "Digest" : digest,
-                            "로그시간" : logdt,
-                            "가스비" : gasFee,
-                            "내변경발란스" : changes,
-                        });
-                    });
-                    break;
-                case "dryRunTransactionBlock":
-                    var status = result.effects.status.status;
-                    var gasFee = parseInt(result.effects.gasUsed.computationCost) + parseInt(result.effects.gasUsed.storageCost) - parseInt(result.effects.gasUsed.storageRebate);
-                    var balanceChanges = result.balanceChanges;
-                    parseResult = {
-                        "예상결과" : status,
-                        "예상가스비" : gasFee,
-                        "예상변경발란스" : balanceChanges,
-                    }
-                    break;
-                case "callPaySui":
-                case "callPay":
-                case "callTransferObject":
-                    var txBytes = result.txBytes;
-                    parseResult = {
-                        "transactionBlock" : txBytes,
-                    };
-                    $('#dryRunTransactionBlock_transactionBlock').val(txBytes);
-                    $('#executeTransactionBlock_transactionBlock').val(txBytes);
-                    break;
+        //                 parseResult.push({
+        //                     "NFTObjectID" : objectID,
+        //                     "메타데이터" : display,
+        //                     "NFT의데이터" : fields,
+        //                 });
+        //             });
+        //             break;
+        //         case "queryTransactionBlocks":
+        //             result.data.forEach(item => {
+        //                 var digest = item.digest;
+        //                 var ts = parseInt(item.timestampMs) / 1000
+        //                 var logdt = moment.unix(ts).format('YYYY-MM-DD HH:mm:ss');
+        //                 var gasFee = parseInt(item.effects.gasUsed.computationCost) + parseInt(item.effects.gasUsed.storageCost) - parseInt(item.effects.gasUsed.storageRebate);
+        //                 var changes = []
+        //                 item.balanceChanges.forEach(change => {
+        //                     if(change.owner.AddressOwner == $('#queryTransactionBlocks_owner').val()){
+        //                         //자기거만 보여준다
+        //                         if(change.coinType == "0x2::sui::SUI") {
+        //                             changes.push({
+        //                                 "변화코인" : change.coinType,
+        //                                 "수량" : change.amount,
+        //                                 "수수료빼고" : parseInt(change.amount) + parseInt(gasFee)
+        //                             });
+        //                         }else{
+        //                             changes.push({
+        //                                 "변화코인" : change.coinType,
+        //                                 "수량" : change.amount
+        //                             });
+        //                         }
+        //                     }
+        //                 })
+        //                 parseResult.push({
+        //                     "Digest" : digest,
+        //                     "로그시간" : logdt,
+        //                     "가스비" : gasFee,
+        //                     "내변경발란스" : changes,
+        //                 });
+        //             });
+        //             break;
+        //         case "dryRunTransactionBlock":
+        //             var status = result.effects.status.status;
+        //             var gasFee = parseInt(result.effects.gasUsed.computationCost) + parseInt(result.effects.gasUsed.storageCost) - parseInt(result.effects.gasUsed.storageRebate);
+        //             var balanceChanges = result.balanceChanges;
+        //             parseResult = {
+        //                 "예상결과" : status,
+        //                 "예상가스비" : gasFee,
+        //                 "예상변경발란스" : balanceChanges,
+        //             }
+        //             break;
+        //         case "callPaySui":
+        //         case "callPay":
+        //         case "callTransferObject":
+        //             var txBytes = result.txBytes;
+        //             parseResult = {
+        //                 "transactionBlock" : txBytes,
+        //             };
+        //             $('#dryRunTransactionBlock_transactionBlock').val(txBytes);
+        //             $('#executeTransactionBlock_transactionBlock').val(txBytes);
+        //             break;
+        //     }
+        //     parseOutputJson(parseResult);
+        // }
+
+        function runRPC(printResult, rpcName){
+            if(printResult){
+                $('.btnDryExe').val(rpcName);
+                $('.btnDryExe').prop('disabled', true);
+                switch(rpcName){
+                    case 'callPaySui':
+                        $('.btnDryExe').prop('disabled', false);
+                        break;
+                    case 'callPay':
+                        $('.btnDryExe').prop('disabled', false);
+                        break;
+                    case 'callTransferObject':
+                        $('.btnDryExe').prop('disabled', false);
+                        break;
+                }
             }
-            parseOutputJson(parseResult);
+        }
+        function setDryrun(rpcName){
+            const jsonString = $('#resultBox').text();
+            const jsonObject = JSON.parse(jsonString);
+            $('#dryRunTransactionBlock_transactionBlock').val(jsonObject.txBytes);
+            
+        }
+        function setExecute(rpcName){
+            const jsonString = $('#resultBox').text();
+            const jsonObject = JSON.parse(jsonString);
+            $('#executeTransactionBlock_transactionBlock').val(jsonObject.txBytes);
+        }
+
+        async function setSample(printResult = true){
+            var walletAddress = $('#setSample_walletaddress').val();
+            if(walletAddress == "") {
+                alert("input test walletaddress")
+                $('#setSample_walletaddress').focus();
+                return
+            }else{
+                //address set
+                $('#getCoins_owner').val(walletAddress);
+                $('#getAllCoins_owner').val(walletAddress);
+                $('#getBalance_owner').val(walletAddress);
+                $('#getAllBalances_owner').val(walletAddress);
+                $('#getOwnedObjects_owner').val(walletAddress);
+                $('#queryTransactionBlocks_owner').val(walletAddress);
+                $('#getStakes_owner').val(walletAddress);
+                
+                
+                //object data set
+                var  getAllCoinsResult = await getAllCoins(false);
+                var aryCoinObjectID = [];
+                var aryDigest = [];
+
+                var suiObject;
+                var tokenObject;
+                getAllCoinsResult.data.every(item => {
+                    if(item.coinType == '0x2::sui::SUI') {
+                        suiObject = item
+                    }else{
+                        tokenObject = item
+                    }
+                    if(suiObject !== undefined && tokenObject !== undefined){
+                        return false
+                    }else{
+                        return true
+                    }
+                });
+                if(getAllCoinsResult.data[0] !== undefined){
+                    aryCoinObjectID.push(getAllCoinsResult.data[0].coinObjectId);
+                    aryDigest.push(getAllCoinsResult.data[0].previousTransaction)
+
+                    //0번은 SUI다
+                    suiObject = getAllCoinsResult.data[0];
+                };
+                if(getAllCoinsResult.data[1] !== undefined){
+                    aryCoinObjectID.push(getAllCoinsResult.data[1].coinObjectId);
+                    aryDigest.push(getAllCoinsResult.data[1].previousTransaction)
+                };                
+                if(aryCoinObjectID[0] !== undefined){
+                    $('#getObject_id').val(aryCoinObjectID[0]);
+                    $('#multiGetObjects_ids').val(aryCoinObjectID[0]);
+                    if(aryCoinObjectID[1] !== undefined){
+                        $('#multiGetObjects_ids').val(aryCoinObjectID[0] +  "," + aryCoinObjectID[1]);
+                    }
+                }
+
+                //checkpoint set
+                $('#getCheckpoints_descendingOrder').val('true')
+                var getLatestCheckpointSequenceNumberResult = await getLatestCheckpointSequenceNumber(false);
+                $('#getCheckpoint_id').val(getLatestCheckpointSequenceNumberResult);
+                
+                //parentID set
+                var getOwnedObjectsResult = await getOwnedObjects(false);
+                var myNftObjectID = ''
+                if(getOwnedObjectsResult.data[0] !== undefined){
+                    myNftObjectID = getOwnedObjectsResult.data[0].data.objectId
+                    $('#getDynamicFields_parentId').val(myNftObjectID);
+                }
+
+                //stakeSuiId set
+                var getStakesResult = await getStakes(false);
+                if(getStakesResult[0] !== undefined) {
+                    if(getStakesResult[0].stakes[0] !== undefined){
+                        $('#getStakesByIds_stakedSuiIds').val(getStakesResult[0].stakes[0].stakedSuiId);
+                    }
+                    if(getStakesResult[0].stakes[1] !== undefined){
+                        $('#getStakesByIds_stakedSuiIds').val($('#getStakesByIds_stakedSuiIds').val()+','+getStakesResult[0].stakes[1].stakedSuiId);
+                    }                    
+                }
+                
+                //coinType Set
+                $('#getTotalSupply_coinType').val('0x2::sui::SUI');
+
+                //getTransactionBlock digest set
+                if(aryDigest[0] !== undefined){
+                    $('#getTransactionBlock_digest').val(aryDigest[0])
+                    $('#multiGetTransactionBlocks_digests').val(aryDigest[0])
+                    if(aryDigest[1] !== undefined){
+                        $('#multiGetTransactionBlocks_digests').val(aryDigest[0]+','+aryDigest[1])
+                    }
+                }
+
+                //PaySui Set
+                if(suiObject !== undefined) {
+                    $('#callPaySui_signer').val(walletAddress);
+                    $('#callPaySui_input_coins').val(suiObject.coinObjectId);
+                    $('#callPaySui_recipients').val(walletAddress);
+                    $('#callPaySui_amounts').val('1');
+                    $('#callPaySui_gas_budget').val('100000000');
+                }
+
+                //Pay Set
+                if(suiObject !== undefined && tokenObject !== undefined) {
+                    $('#callPay_signer').val(walletAddress);
+                    $('#callPay_input_coins').val(tokenObject.coinObjectId);
+                    $('#callPay_recipients').val(walletAddress);
+                    $('#callPay_amounts').val('1');
+                    $('#callPay_gas_object').val(suiObject.coinObjectId);
+                    $('#callPay_gas_budget').val('100000000');
+                }
+
+                //TransferObject Set
+                if(suiObject !== undefined && myNftObjectID !== '') {
+                    $('#callTransferObject_signer').val(walletAddress);
+                    $('#callTransferObject_object_id').val(myNftObjectID);
+                    $('#callTransferObject_gas_object').val(suiObject.coinObjectId);
+                    $('#callTransferObject_gas_budget').val('10000000');
+                    $('#callTransferObject_recipient').val(walletAddress);
+                }
+            }
         }
     </script>
 </head>
@@ -736,6 +1015,8 @@
     <div class="container">
         <div class="left-panel">
             <div class="left-panel-content">
+                <div class="title">SUI Testnet</div>
+                <div><button onclick="setSample()">Sample Setting</button> <input size="70" id="setSample_walletaddress" placeholder="Input test address" value=""></div>
                 <table cellspacing="0" cellpadding="0">
                     <tr>
                         <th>Function</th>
@@ -896,6 +1177,77 @@
                         </td>
                     </tr>
                     <tr>
+                        <td>getReferenceGasPrice</td>
+                        <td width="8%">Import base gas prices for the network</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getReferenceGasPrice' target="_blank">link</a></td>
+                        <td><button onClick="getReferenceGasPrice()">Run</button></td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>getRpcApiVersion</td>
+                        <td width="8%">Get RPC API Version Information</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getRpcApiVersion' target="_blank">link</a></td>
+                        <td><button onClick="getRpcApiVersion()">Run</button></td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>getStakes</td>
+                        <td width="8%">Import delegated steak information to the address</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getStakes' target="_blank">link</a></td>
+                        <td><button onClick="getStakes()">Run</button></td>
+                        <td>
+                            owner*<br><input size=50 id="getStakes_owner" value=""><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>getStakesByIds</td>
+                        <td width="8%">Import delegated steak information to the id</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getStakesByIds' target="_blank">link</a></td>
+                        <td><button onClick="getStakesByIds()">Run</button></td>
+                        <td>
+                            stakedSuiIds*(Separate with ",")<br><input size=50 id="getStakesByIds_stakedSuiIds" value=""><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>getTotalSupply</td>
+                        <td width="8%">Total Supply</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTotalSupply' target="_blank">link</a></td>
+                        <td><button onClick="getTotalSupply()">Run</button></td>
+                        <td>
+                            coinType*<br><input size=50 id="getTotalSupply_coinType" value=""><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>getTotalTransactionBlocks</td>
+                        <td width="8%">Get the total quantity of transactions</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTotalTransactionBlocks' target="_blank">link</a></td>
+                        <td><button onClick="getTotalTransactionBlocks()">Run</button></td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>getTransactionBlock</td>
+                        <td width="8%">Returns transaction data for digest</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTransactionBlock' target="_blank">link</a></td>
+                        <td><button onClick="getTransactionBlock()">Run</button></td>
+                        <td>
+                            digest*<br><input size=50 id="getTransactionBlock_digest" value=""><br>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>multiGetTransactionBlocks</td>
+                        <td width="8%">Returns transaction data for digests</td>
+                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#multiGetTransactionBlocks' target="_blank">link</a></td>
+                        <td><button onClick="multiGetTransactionBlocks()">Run</button></td>
+                        <td>
+                            digests*(Separate with ",")<br><input size=50 id="multiGetTransactionBlocks_digests" value=""><br>
+                        </td>
+                    </tr>
+
+                    <!-- Move -->
+                    <tr>
                         <td>getMoveFunctionArgTypes</td>
                         <td width="8%">Get the factor type of Move function in the same way as read, write, full access</td>
                         <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getMoveFunctionArgTypes' target="_blank">link</a></td>
@@ -934,84 +1286,6 @@
                         <td><button onClick="getNormalizedMoveModulesByPackage()">Run</button></td>
                         <td>
                             package*<br><input size=50 id="getNormalizedMoveModulesByPackage_package" value=""><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getReferenceGasPrice</td>
-                        <td width="8%">Import base gas prices for the network</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getReferenceGasPrice' target="_blank">link</a></td>
-                        <td><button onClick="getReferenceGasPrice()">Run</button></td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getRpcApiVersion</td>
-                        <td width="8%">Get RPC API Version Information</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getRpcApiVersion' target="_blank">link</a></td>
-                        <td><button onClick="getRpcApiVersion()">Run</button></td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getStakes</td>
-                        <td width="8%">Import delegated steak information to the address</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getStakes' target="_blank">link</a></td>
-                        <td><button onClick="getStakes()">Run</button></td>
-                        <td>
-                            owner*<br><input size=50 id="getStakes_owner" value=""><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getStakesByIds</td>
-                        <td width="8%">Import delegated steak information to the id</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getStakesByIds' target="_blank">link</a></td>
-                        <td><button onClick="getStakesByIds()">Run</button></td>
-                        <td>
-                            stakedSuiIds*(Separate with ",")<br><input size=50 id="getStakesByIds_stakedSuiIds" value=""><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getTotalSupply</td>
-                        <td width="8%"></td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTotalSupply' target="_blank">link</a></td>
-                        <td><button onClick="getTotalSupply()">Run</button></td>
-                        <td>
-                            coinType*<br><input size=50 id="getTotalSupply_coinType" value="0x2::sui::SUI"><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getTotalTransactionBlocks</td>
-                        <td width="8%">Get the total quantity of transactions</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTotalTransactionBlocks' target="_blank">link</a></td>
-                        <td><button onClick="getTotalTransactionBlocks()">Run</button></td>
-                        <td>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>getTransactionBlock</td>
-                        <td width="8%">Returns transaction data for digest</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#getTransactionBlock' target="_blank">link</a></td>
-                        <td><button onClick="getTransactionBlock()">Run</button></td>
-                        <td>
-                            digest*<br><input size=50 id="getTransactionBlock_digest" value=""><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>multiGetTransactionBlocks</td>
-                        <td width="8%">Returns transaction data for digests</td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#multiGetTransactionBlocks' target="_blank">link</a></td>
-                        <td><button onClick="multiGetTransactionBlocks()">Run</button></td>
-                        <td>
-                            digests*(Separate with ",")<br><input size=50 id="multiGetTransactionBlocks_digests" value=""><br>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>resolveNameServiceAddress</td>  
-                        <td width="8%"></td>
-                        <td><a href='https://sdk.mystenlabs.com/typedoc/classes/_mysten_sui.client.SuiClient.html#resolveNameServiceAddress' target="_blank">link</a></td>
-                        <td><button onClick="resolveNameServiceAddress()">Run</button></td>
-                        <td>
-                            name*<br><input size=50 id="resolveNameServiceAddress_name" value=""><br>
                         </td>
                     </tr>
 
@@ -1089,8 +1363,12 @@
         </div>
         <div class="right-panel">
             <div id="resultBox" class="result-box"></div>
-            <button onclick="parse(this.value)" value="" id="btnParse">Parse</button>
-            <div id="parseBox" class="parse-box"></div>
+            <div>
+                <!-- <button onclick="parse(this.value)" id="btnParse">Parse</button> -->
+                <button class='btnDryExe' disabled onclick="setDryrun(this.value)">DryrunSet</button>
+                <button class='btnDryExe' disabled onclick="setExecute(this.value)">ExecuteSet</button>
+            </div>
+            <!-- <div id="parseBox" class="parse-box"></div> -->
         </div>
     </div>
 </body>

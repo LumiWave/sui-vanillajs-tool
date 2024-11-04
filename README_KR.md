@@ -29,6 +29,7 @@ npm start
 
 ### 4. **실행 결과 확인**
 브라우저에서 [http://localhost:3000](http://localhost:3000)으로 접속하여 서버가 정상적으로 실행되고 있는지 확인하세요.
+![running image](sample_image.png)
 
 ## 디렉터리 구조
 

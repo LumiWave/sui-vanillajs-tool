@@ -21,6 +21,10 @@ thead {
   background-color: #f2f2f2; /* 헤더 배경색 */
 }
 
+.tdcenter {
+  align-content: center;
+}
+
 .container {
   display: flex;
   height: 100%;
@@ -49,7 +53,7 @@ thead {
 
 .result-box {
   flex-grow: 1;
-  height: 50%;
+  height: 100%;
   background-color: #fff;
   border: 1px solid #ccc;
   padding: 10px;
@@ -74,4 +78,11 @@ button {
   padding: 5px 10px;
   margin: 10px 0;
   flex-shrink: 0; /* 버튼 크기 고정 */
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
 }

@@ -32,6 +32,7 @@ npm start
 
 ### 4. **Check the Results**  
 Open your browser and go to [http://localhost:3000](http://localhost:3000) to confirm that the server is running correctly.
+![running image](sample_image.png)
 
 ## Directory Structure
 
